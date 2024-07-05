@@ -75,6 +75,7 @@ def profile_view(request):
 class CustomPasswordResetView(PasswordResetView):
     form_class = CustomPasswordResetForm
     template_name = 'registration/password_reset_form.html'
+    email_template_name = 'registration/password_reset_email.html'
 
 @method_decorator(unauthenticated_user, name='dispatch')
 class CustomPasswordResetDoneView(PasswordResetDoneView):
