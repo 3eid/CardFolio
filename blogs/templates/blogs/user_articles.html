@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Manage Articles</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="save">Save</button>
+    <button type="submit" name="delete" onclick="return confirm('Are you sure you want to delete this article?');">Delete</button>
+    <button type="button" onclick="createNewArticle()">New</button>
+  </form>
+
+  <div>
+    <button onclick="navigateArticle('previous')">Previous</button>
+    <button onclick="navigateArticle('next')">Next</button>
+  </div>
+
+  <script>
+    let articles = {{ articles_json|safe }};
+    let currentArticleId = {{ current_article_id|default:0 }};
+    let currentArticleIndex = articles.findIndex(article => article.id === currentArticleId);
+
+    function navigateArticle(direction) {
+      if (direction === 'previous') {
+        currentArticleIndex = (currentArticleIndex - 1 + articles.length) % articles.length;
+      } else if (direction === 'next') {
+        currentArticleIndex = (currentArticleIndex + 1) % articles.length;
+      }
+      window.location.href = `/articles/user/{{ user.id }}/articles/?article_id=${articles[currentArticleIndex].id}`;
+    }
+
+    function createNewArticle() {
+      window.location.href = `/articles/user/{{ user.id }}/articles/?new_article=true`;
+    }
+  </script>
+{% endblock %}

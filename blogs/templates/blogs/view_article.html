@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ article.heading }}</title>
+</head>
+<body>
+    <h1>{{ article.heading }}</h1>
+    <h2>{{ article.subheading }}</h2>
+    <p>{{ article.description }}</p>
+    {% if article.image %}
+        <img src="{{ article.image.url }}" alt="{{ article.heading }}">
+    {% endif %}
+    <p><a href="{% url 'view_profile' profile.user.id %}">View Profile</a></p>
+</body>
+</html>
