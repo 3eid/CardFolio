@@ -12,13 +12,11 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
-from pathlib import Path
 from .config import EMAIL_BACKEND, EMAIL_HOST, EMAIL_PORT, EMAIL_USE_TLS, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD, DEFAULT_FROM_EMAIL
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -69,7 +67,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'templates'),
-                 os.path.join(BASE_DIR, 'users', 'templates')
+                 os.path.join(BASE_DIR, 'users', 'templates'),
+                 
                  ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -143,7 +142,15 @@ SITE_ID = 1
 
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'static'
+
+# Specify additional directories where Django should look for static files
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),  # Add any other directories if needed
+]
+
+# Define the absolute filesystem path where collected static files will be stored
+STATIC_ROOT = BASE_DIR / 'static_root'
+

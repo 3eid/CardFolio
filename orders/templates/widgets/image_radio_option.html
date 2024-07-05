@@ -1,0 +1,9 @@
+<!-- templates/widgets/image_radio_option.html -->
+<label class="radio-option">
+    <p>Debug: image_radio_option.html loaded</p>
+    {{ widget.tag }} <!-- The actual radio button -->
+    <img src="{{ widget.choice_label.image.url }}" alt="{{ widget.choice_label.name }}" style="width:100px;height:auto;">
+    <p>Image URL: {{ widget.choice_label.image.url }}</p>
+    <p>Name: {{ widget.choice_label.name }}</p>
+    <p>Widget Tag: {{ widget.tag }}</p>
+</label>

@@ -1,0 +1,11 @@
+{% load custom_filters %}
+
+{% for group, options, index in widget.optgroups %}
+    {% for option in options %}
+        <label>
+            <input type="radio" name="{{ widget.name }}" value="{{ option.value }}" {% if option.attrs %}{{ option.attrs|flatatt }}{% endif %}>
+            <img src="{{ option.image_url }}" alt="{{ option.label }}" style="max-width: 150px;">
+            {{ option.label }}
+        </label>
+    {% endfor %}
+{% endfor %}
