@@ -16,6 +16,11 @@ def edit_profile(request):
     return render(request, 'profiles/edit_profile.html', {'form': form})
 
 @login_required
-def view_profile(request):
+def my_profile(request):
     profile = Profile.objects.get(user=request.user)
+    return render(request, 'profiles/view_profile.html', {'profile': profile})
+
+@login_required
+def view_profile(request,id):
+    profile = Profile.objects.get(pk = id)
     return render(request, 'profiles/view_profile.html', {'profile': profile})
