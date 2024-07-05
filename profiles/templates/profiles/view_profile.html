@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{ profile.full_name }}</h2>
+  <p><strong>Headline:</strong> {{ profile.headline }}</p>
+  <p><strong>Bio:</strong> {{ profile.bio }}</p>
+  <p><strong>Email:</strong> {{ profile.email }}</p>
+  <p><strong>Website:</strong> <a href="{{ profile.website }}">{{ profile.website }}</a></p>
+  {% if profile.profile_pic %}
+    <img src="{{ profile.profile_pic.url }}" alt="{{ profile.full_name }}" style="max-width: 150px;">
+  {% endif %}
+  <!-- Add other fields similarly -->
+  <p><strong>Facebook:</strong> <a href="{{ profile.facebook_link }}">{{ profile.facebook_link }}</a></p>
+  <p><strong>Twitter:</strong> <a href="{{ profile.twitter_link }}">{{ profile.twitter_link }}</a></p>
+  <p><strong>LinkedIn:</strong> <a href="{{ profile.linkedin_link }}">{{ profile.linkedin_link }}</a></p>
+  <p><strong>Instagram:</strong> <a href="{{ profile.instagram_link }}">{{ profile.instagram_link }}</a></p>
+  <p><strong>TikTok:</strong> <a href="{{ profile.tiktok_link }}">{{ profile.tiktok_link }}</a></p>
+  <p><strong>YouTube:</strong> <a href="{{ profile.youtube_link }}">{{ profile.youtube_link }}</a></p>
+  <p><strong>GitHub:</strong> <a href="{{ profile.github_link }}">{{ profile.github_link }}</a></p>
+  <p><strong>Behance:</strong> <a href="{{ profile.behance_link }}">{{ profile.behance_link }}</a></p>
+{% endblock %}
