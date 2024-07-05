@@ -41,11 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'main',
     'users',
-    'profiles',
+    # 'profiles',
     'orders',
     'blogs',
     'projects',
-    'chatbot',
+    # 'chatbot',
+    'profiles.apps.ProfilesConfig',  
+    'chatbot.apps.ChatbotConfig',
     'django.contrib.sites',
 ]
 

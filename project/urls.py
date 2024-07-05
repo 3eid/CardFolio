@@ -11,6 +11,7 @@ urlpatterns = [
     path('profiles/', include('profiles.urls')),
     path('projects/', include('projects.urls')),
     path('articles/', include('blogs.urls')),
+    path('chatbot/', include('chatbot.urls')),
     
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

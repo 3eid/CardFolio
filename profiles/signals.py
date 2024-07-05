@@ -3,6 +3,14 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 from .models import Profile
+from chatbot.models import Chatbot
+
+@receiver(post_save, sender=Profile)
+def create_chatbot(sender, instance, created, **kwargs):
+    if created:
+        Chatbot.objects.create(profile=instance)
+
+
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -12,3 +20,4 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
