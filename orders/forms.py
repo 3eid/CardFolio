@@ -1,10 +1,6 @@
-# orders/forms.py
 from django import forms
 from .models import Order, CardDesign
 from .custom_widgets import ImageRadioSelect
-
-
-
 
 class OrderForm(forms.ModelForm):
     class Meta:
@@ -15,7 +11,14 @@ class OrderForm(forms.ModelForm):
             'phone_on_card'
         ]
         widgets = {
-            'address': forms.Textarea(attrs={'rows': 3, 'cols': 40}),
+            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'address': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
             'card_design': ImageRadioSelect,
+            'logo': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+            'name_on_card': forms.TextInput(attrs={'class': 'form-control'}),
+            'headline_on_card': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone_on_card': forms.TextInput(attrs={'class': 'form-control'}),
         }
-

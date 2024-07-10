@@ -1,34 +1,159 @@
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Manage Projects</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardFolio</title>
+    <!-- google fonts montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- font awesome icons cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- bootstrap cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav>
+        <div class="mycontainer nav_container">
+            <a href="index.html"><img src="https://i.ibb.co/HpSX9M8/image-removebg-preview.png" width="70" height ="70"></a>
+                <ul class="nav__menu">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    
+                    <li><a href="{% url 'home' %}#team">About</a></li>
+                    <li><a href="{% url 'home' %}#contact">Contact</a></li>
+                    <li><a href="{% url 'orders' %}">Orders</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'edit_profile' %}"><i class="fa-solid fa-user"></i></a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}" > <i class="fa-solid fa-user"></i></a></li>
+                    {% endif %}
+                </ul>
+                <button id="open-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <button id="close-menu-btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+        </div>
+    </nav>
+    <div class="container mt-3">
+        <div class="text-center">
+            <h1 class="mb-3">Edit Projects</h1>
+        </div>
+        <div class="text-center mb-4">
+            <button type="button" class="btn btn-primary" onclick="createNewProject()">New</button>
+            <button type="submit" name="save" form="projectForm" class="btn btn-warning">Save</button>
+            <button type="submit" name="delete" form="projectForm" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this project?');">Delete</button>
+        </div>
+        <form class="mycontainer" method="post" enctype="multipart/form-data" id="projectForm">
+            {% csrf_token %}
+            <div class="row mb-3">
+                <label for="titleInput" class="col-sm-2 col-form-label">Title</label>
+                <div class="col-sm-10">
+                    {{ form.title }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="descriptionInput" class="col-sm-2 col-form-label">Description</label>
+                <div class="col-sm-10">
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="linkInput" class="col-sm-2 col-form-label">Link</label>
+                <div class="col-sm-10">
+                    {{ form.link }}
+                </div>
+            </div>
+            <div class="row mb-3 align-items-center">
+                <label for="image1Input" class="col-sm-2 col-form-label">Image 1</label>
+                <div class="col-sm-4">
+                    {{ form.image1 }}
+                </div>
+                {% if form.instance.image1 %}
+                <div class="col-sm-6">
+                    <img id="image1Preview" src="{{ form.instance.image1.url }}" alt="Image Preview" style="max-width: 200px; max-height: 200px; display: block;">
+                </div>
+                {% endif %}
+            </div>
+            <div class="row mb-3 align-items-center">
+                <label for="image2Input" class="col-sm-2 col-form-label">Image 2</label>
+                <div class="col-sm-4">
+                    {{ form.image2 }}
+                </div>
+                {% if form.instance.image2 %}
+                <div class="col-sm-6">
+                    <img id="image2Preview" src="{{ form.instance.image2.url }}" alt="Image Preview" style="max-width: 200px; max-height: 200px; display: block;">
+                </div>
+                {% endif %}
+            </div>
+            <div class="row mb-3 align-items-center">
+                <label for="image3Input" class="col-sm-2 col-form-label">Image 3</label>
+                <div class="col-sm-4">
+                    {{ form.image3 }}
+                </div>
+                {% if form.instance.image3 %}
+                <div class="col-sm-6">
+                    <img id="image3Preview" src="{{ form.instance.image3.url }}" alt="Image Preview" style="max-width: 200px; max-height: 200px; display: block;">
+                </div>
+                {% endif %}
+            </div>
+        </form>
+        <!-- Pagination -->
+        <div aria-label="Page navigation example" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)" aria-label="first" onclick="navigateProject('first')">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)" aria-label="Previous" onclick="navigateProject('previous')">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link" href="javascript:void(0)">{{ current_project_index }} / {{ projects_count }}</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)" aria-label="Next" onclick="navigateProject('next')">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="javascript:void(0)" aria-label="last" onclick="navigateProject('last')">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
     <script>
         let projects = {{ projects_json|safe }};
-        let currentProjectIndex = projects.findIndex(project => project.id === {{ current_project_id|default:0 }});
+        let currentProjectId = {{ current_project_id|default:0 }};
+        let currentProjectIndex = projects.findIndex(project => project.id === currentProjectId) + 1;
+        let projectsCount = projects.length;
 
         function navigateProject(direction) {
             if (direction === 'previous') {
-                currentProjectIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+                currentProjectIndex = (currentProjectIndex - 2 + projects.length) % projects.length + 1;
             } else if (direction === 'next') {
-                currentProjectIndex = (currentProjectIndex + 1) % projects.length;
+                currentProjectIndex = (currentProjectIndex % projects.length) + 1;
+            } else if (direction === 'first') {
+                currentProjectIndex = 1 ;
+            } else if (direction === 'last') {
+                currentProjectIndex = projects.length;
             }
-            window.location.href = `/projects/user/{{ request.user.id }}/projects/?project_id=${projects[currentProjectIndex].id}`;
+
+            const projectId = projects[currentProjectIndex - 1].id;
+            window.location.href = `?project_id=${projectId}`;
+        }
+
+        function createNewProject() {
+            window.location.href = `?new_project=true`;
         }
     </script>
-</head>
-<body>
-    <h1>Manage Projects</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" name="save">Save</button>
-        <button type="submit" name="delete" onclick="return confirm('Are you sure you want to delete this project?');">Delete</button>
-        <button type="submit" name="new">New</button>
-    </form>
-
-    <div>
-        <button onclick="navigateProject('previous')">Previous</button>
-        <button onclick="navigateProject('next')">Next</button>
-    </div>
 </body>
 </html>

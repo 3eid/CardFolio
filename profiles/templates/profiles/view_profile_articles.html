@@ -1,0 +1,109 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardFolio</title>
+    <!-- google fonts montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!----------------------------->
+    <!-- font awesome icons cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--------------------------->
+    <!-- bootstrap cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--------------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+      .small-img {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+    
+    </style>
+</head>
+<body>
+    <div class="mycontainer">
+        <div class="profile-container">
+            {% if profile.profile_pic %}
+            <img src="{{ profile.profile_pic.url }}" alt="Profile Picture">
+            {% else %}
+            <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Profile Picture">
+            {% endif %}
+            <h1 class="full-name">{{ profile.full_name }}</h1>
+            <p class="headline">{{ profile.headline }}</p>
+            <p class="bio">{{ profile.bio }}</p>
+        </div>
+        <div class="social-icons">
+            {% if profile.facebook_link %}
+            <a href="{{ profile.facebook_link }}" title="Facebook"> 
+              <i class="fa-brands fa-facebook-square"></i>
+            </a>
+            {% endif %}
+            {% if profile.twitter_link %}
+            <a href="{{ profile.twitter_link }}" title="Twitter"> 
+              <i class="fa-brands fa-twitter-square"></i>
+            </a>
+            {% endif %}
+            {% if profile.instagram_link %}
+            <a href="{{ profile.instagram_link }}" title="Instagram">  
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            {% endif %}
+            {% if profile.github_link %}
+            <a href="{{ profile.github_link }}" title="GitHub">
+                <i class="fa-brands fa-square-github"></i>
+            </a>
+            {% endif %}
+            {% if profile.linkedin_link %}
+            <a href="{{ profile.linkedin_link }}" title="LinkedIn">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+            {% endif %}
+            {% if profile.behance_link %}
+            <a href="{{ profile.behance_link }}" title="Behance">
+                <i class="fa-brands fa-square-behance"></i>
+            </a>
+            {% endif %}
+        </div>
+        <br>
+        <div class="text-center">
+            <a href="{% url 'view_profile_projects' profile.id %}" class="btn btn-link">Projects</a>
+            <a href="{% url 'view_profile_chatbot' profile.id %}" class="btn btn-link">ChatBot</a>
+            Articles
+        </div>
+        <br>
+          <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <div class="text-center"><th scope="col">Image</th></div>
+                <th scope="col">Link</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for article in articles %}
+              <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a  href="{% url 'view_article' article.id %}">{{ article.heading }}</a></td>
+                {% if article.image %}
+                <td><img class="small-img" src="{{ article.image.url }}" alt="article_pic"></td>
+                {% else %}
+                <td><img class="small-img" src="{% static 'images/article.png' %}" alt="article_pic"></td>
+                {% endif %}
+                <td><a  class="btn btn-secondary " href="{% url 'view_article' article.id %}">Read More</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        
+    </div>
+</body>
+</html>

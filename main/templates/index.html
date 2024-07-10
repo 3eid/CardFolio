@@ -1,11 +1,204 @@
+{% load static  %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CardFolio</title>
+    <!-- google fonts montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!----------------------------->
+    <!-- font awsome icons cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--------------------------->
+    <!-- bootstap cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--------------------------->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Welcome to CardFolio</h1>
-    <p>This is the home page.</p>
-    <a href="{% url 'signup' %}">Sign Up</a> | <a href="{% url 'login' %}">Login</a> | <a href="{% url 'logout' %}">Logout</a> | <a href="{% url 'profile' %}">Profile</a> | <a href="{% url 'password_change' %}">Change Password</a> | <a href="{% url 'password_reset' %}">reset Password</a>
+    <nav>
+        <div class="mycontainer nav_container">
+            <a href="index.html"><img src="https://i.ibb.co/HpSX9M8/image-removebg-preview.png" width="70" height ="70"></a>
+                <ul class="nav__menu">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    
+                    <li><a href="{% url 'home' %}#team">About</a></li>
+                    <li><a href="{% url 'home' %}#contact">Contact</a></li>
+                    <li><a href="{% url 'orders' %}">Orders</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'edit_profile' %}"><i class="fa-solid fa-user"></i></a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}" > <i class="fa-solid fa-user"></i></a></li>
+                    {% endif %}
+                </ul>
+                <button id="open-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <button id="close-menu-btn">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+        </div>
+    </nav>
+    <header>
+        <div class="mycontainer header__container">
+            <div class="header__left">
+                <h1>What is a digital business card?</h1>
+                <p>
+                    In today's fast-paced business world, our Digital Business Card represents the cutting edge of networking. It's an eco-friendly, tech-savvy solution, enabling you to share your contact information instantly and effortlessly. Powered by Near Field Communication (NFC) and QR code technology, our digital card transforms the traditional business card into a dynamic, interactive experience.
+                </p>
+                <a class="mybtn mybtn-primary" href="../html/courses.html">Get started</a>
+            </div>
+            <div class="header-right">
+                  <div class="header__right-img">
+                    <img src="{% static 'images/Quantum_Tap_BusinessCard_Photographer.png' %}" alt="">
+                  </div>  
+            </div>
+        </div>
+    </header>
+    <section class="features">
+        <div class="feature-text-container">
+            <p class="gradient-text">Features</p>
+            <p class="text">Discover the unique benefits that set us apart.</p>
+        </div>
+        <div class="mycontainer features__container">
+            <div class="feature-imgs">
+                <img class="feature-img" src="{% static 'images/features.webp' %}" alt="">
+                <img class="feature-img" src="{% static 'images/features2.webp' %}" alt="">
+                <img class="feature-img" src="{% static 'images/features2.webp' %}" alt="">
+            </div>
+        </div>
+    </section>
+    <section class="services_section">
+        <div class="mycontainer services__container">
+            <h2>Our Services</h2>
+            <div class="services">
+                <div class="service">
+                    <img src="{% static 'images/service1.jpg' %}" alt="">
+                    <div class="service__description">
+                        <h4>Business Use</h4>
+                        <p>For Businessmen, Freelancers, and Service Providers (Lawyers, Technicians, etc).</p>
+                        <a class="mybtn mybtn-primary" href="#">Learn more</a>
+                    </div>
+                </div>
+                <div class="service">
+                    <img src="{% static 'images/service2.jpg' %}" alt="">
+                    <div class="service__description">
+                        <h4>People with Medical History</h4>
+                        <p>NFC cards are integrated with health monitoring devices to track and update health data.</p>
+                        <a class="mybtn mybtn-primary" href="#">Learn more</a>
+                    </div>
+                </div>
+                <div class="service">
+                    <img src="{% static 'images/service3.jpg' %}" alt="">
+                    <div class="service__description">
+                        <h4>Event Management</h4>
+                        <p>Attendees can tap their NFC cards to access event schedules, venue maps, speaker bios, and other relevant information.</p>
+                        <a class="mybtn mybtn-primary" href="#">Learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="team" id="team">
+        <h2>Meet Our Team</h2>
+        <div class="mycontainer team__container">
+            <article class="team__member">
+                <div class="team__member-img">  
+                    <img src="{% static 'images/Ashraf Mohamed.jpeg' %}" alt="">
+                </div>
+                <div class="team__member-info">
+                    <h4>Ashraf Mohamed</h4>
+                    <p>Flutter Developer</p>    
+                </div>
+                <div class="team__memebr-socials">
+                    <a href="https://www.instagram.com/ashrafkll/"><i class="fa-brands fa-square-instagram"></i></a>
+                    <a href="https://x.com/AshrafM98237166"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/ashraf-mohamed-092452259/"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </article>
+            <article class="team__member">
+                <div class="team__member-img">
+                    <img src="{% static 'images/Abdelrahman Bassem Shaheen.jpg' %}" alt="">
+                </div>
+                <div class="team__member-info">
+                    <h4>Abdelrahman Shaheen</h4>
+                    <p>Software Engineer</p>    
+                </div>
+                <div class="team__memebr-socials">
+                    <a href="https://instagram.com"><i class="fa-brands fa-square-instagram"></i></a>
+                    <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/abdelrahman-shaheen-3b03281a7/"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </article>
+            <article class="team__member">
+                <div class="team__member-img">
+                    <img src="{% static 'images/Muhamed Eid.jpeg' %}" alt="">
+                </div>
+                <div class="team__member-info">
+                    <h4>Mohamed Eid</h4>
+                    <p>Software Engineer</p>    
+                </div>
+                <div class="team__memebr-socials">
+                    <a href="https://instagram.com"><i class="fa-brands fa-square-instagram"></i></a>
+                    <a href="https://twitter.com"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/3eid/"><i class="fa-brands fa-linkedin"></i></a>
+                </div>
+            </article>
+        </div>
+    </section>
+    <section class="contact" id="contact">
+        <h2>Contact Us</h2>
+        <div class="mycontainer contact-container">
+            <div>
+                <div class="name-container">
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="firstName" placeholder="First Name">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" class="form-control" id="lastName" placeholder="Last Name">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Message"></textarea>
+                </div>
+                <div class="col-12">
+                    <button class="mybtn mybtn-primary submit-btn" type="submit">Submit form</button>
+                </div>
+            </div>
+        </div>
+    </section>
+   <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Login</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <!-- Login form -->
+            <form>
+                <div class="mb-3">
+                <label for="emailInput" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="emailInput" placeholder="name@example.com">
+                </div>
+                <div class="mb-3">
+                <label for="passwordInput" class="form-label">Password</label>
+                <input type="password" class="form-control" id="passwordInput" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
 </body>
 </html>

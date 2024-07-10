@@ -13,14 +13,44 @@ def view_project(request, project_id):
         'project': project,
         'profile': profile,
     })
-@login_required
-def user_projects(request, user_id):
-    if request.user.id != user_id:
-        return redirect('home')  # or show a 403 error
-
-    profile = get_object_or_404(Profile, user_id=user_id)
-    projects = Project.objects.filter(profile=profile)
     
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Profile, Project
+from .forms import ProjectForm
+import json
+
+from django.http import HttpResponseForbidden
+
+@login_required
+def user_projects(request, profile_id):
+    # Ensure the logged-in user matches the requested profile_id
+    
+    
+
+    profile = get_object_or_404(Profile, id=profile_id)
+    if request.user.id != profile.user.id:
+        return HttpResponseForbidden("You do not have permission to access this page.")
+    projects = Project.objects.filter(profile=profile)
+
+    # Handling new project creation
+    if 'new_project' in request.GET:
+        # Check if the current project is empty and delete if true
+        current_project = projects.last()
+        if current_project and not current_project.title and not current_project.description and not current_project.link:
+            current_project.delete()
+
+        new_project = Project(profile=profile)
+        new_project.save()
+        return redirect("user_projects", profile_id=profile_id)
+
+    # Check if there are no projects and create an empty one
+    if not projects.exists():
+        empty_project = Project(profile=profile, title="Untitled Project")
+        empty_project.save()
+        # Redirect to refresh projects queryset
+        return redirect("user_projects", profile_id=profile_id)
+
     project_id = request.GET.get('project_id')
     project = projects.first() if project_id is None else get_object_or_404(Project, pk=project_id, profile=profile)
 
@@ -29,21 +59,23 @@ def user_projects(request, user_id):
             form = ProjectForm(request.POST, request.FILES, instance=project)
             if form.is_valid():
                 form.save()
-                return redirect('user_projects', user_id=user_id)
+                return redirect(f'/projects/user/{profile_id}/projects/?project_id={project.id}')
         elif 'delete' in request.POST:
             project.delete()
-            return redirect('user_projects', user_id=user_id)
-        elif 'new' in request.POST:
-            new_project = Project(profile=profile)
-            new_project.save()
-            return redirect('user_projects', user_id=user_id)
+            return redirect(f'/projects/user/{profile_id}/projects/')
     else:
         form = ProjectForm(instance=project)
 
     projects_data = list(projects.values('id', 'title', 'description', 'link', 'image1', 'image2', 'image3'))
+    current_project_index = projects.filter(id__lte=project.id).count()
+    projects_count = projects.count()
 
     return render(request, 'projects/user_projects.html', {
+        'profile': profile,
+        'projects': projects,
         'form': form,
         'projects_json': json.dumps(projects_data),
-        'current_project_id': project.id if project else None,
+        'current_project_id': project.id,
+        'current_project_index': current_project_index,
+        'projects_count': projects_count,
     })

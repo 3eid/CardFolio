@@ -13,15 +13,14 @@ def order_card_view(request):
             order = form.save(commit=False)
             order.user = request.user
             order.save()
-            return redirect('order_success')
+            return redirect('orders')
     else:
         form = OrderForm()
     return render(request, 'order_card.html', {'form': form})
 
 
 
-def order_success_view(request):
-    return render(request, 'order_success.html')
+
 
 @login_required
 def track_orders_view(request):
