@@ -73,7 +73,7 @@ def my_profile(request):
 
 def view_profile(request,id):
     profile = Profile.objects.get(pk = id)
-    return render(request, 'profiles/view_profile.html', {'profile': profile})
+    return redirect("view_profile_chatbot", profile.id)
 
 
 def view_profile_projects(request, id):
