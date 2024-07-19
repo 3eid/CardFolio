@@ -1,4 +1,4 @@
-# CardFolio
+![image](https://github.com/user-attachments/assets/1f39c627-e0b7-4246-b979-2edd0bd7b3b5)# CardFolio
 
 CardFolio is a platform offering smart NFC business cards. Upon scanning the card, it redirects to a personalized landing page containing extensive personal and professional information, including a profile picture, cover photo, name, heading, bio, contact details, social media links, blog articles, project lists, and a personalized chatbot. Customers can order custom-designed NFC business cards through the website, choose a card design, select a biolinks page template, and fill in their personal data.
 
@@ -18,19 +18,38 @@ Check out the live demo [here](https://cardfli0.pythonanywhere.com).
 ## Screenshots
 
 ### Home Page
-![Home Page](screenshots/home_page.png)
+![image](https://github.com/user-attachments/assets/d6ac7a11-30e7-4863-9578-a9acfa620d9c)
+![image](https://github.com/user-attachments/assets/ec416ede-ba53-4cb8-837e-2d04ee0b2008)
+![image](https://github.com/user-attachments/assets/ebb20e04-9513-4a0a-a58f-f69dda662c1a)
+![image](https://github.com/user-attachments/assets/ab45e3e4-f89a-43f4-b2e5-3a1932480b42)
 
-### Profile Page
-![Profile Page](screenshots/profile_page.png)
+### Public Profile Page - Articles
+![image](https://github.com/user-attachments/assets/f8700bc3-c8cd-4214-857e-73792838f783)
+
+### Public Profile Page - Projects
+![image](https://github.com/user-attachments/assets/05a2fe3b-9839-437b-9a86-3f95c3ef4551)
+
+### Public Profile Page - Chatbot Interaction
+![image](https://github.com/user-attachments/assets/18cf5676-e42f-452e-bc3d-9a0ce3069a2b)
+
+### Edit Profile Page
+![image](https://github.com/user-attachments/assets/6a6089c5-8d0e-4c5e-bc35-b7376d25e763)
+
+### Orders Page
+![image](https://github.com/user-attachments/assets/e3a2f439-4d2a-4a90-96ab-62851c8f7a01)
 
 ### Order Page
-![Order Page](screenshots/order_page.png)
+![image](https://github.com/user-attachments/assets/23ef7269-a965-4735-9712-07f1732b946c)
 
-### Projects Page
-![Projects Page](screenshots/projects_page.png)
+### Edit Projects Page
+![image](https://github.com/user-attachments/assets/c96df130-63d2-4b82-a7b8-aa75e2b1352e)
 
-### Chatbot Interaction
-![Chatbot Interaction](screenshots/chatbot_interaction.png)
+### Edit Articles Page
+![image](https://github.com/user-attachments/assets/7da2521c-a40f-469f-9707-cecf860c835a)
+
+### ChatBot Tuning
+![image](https://github.com/user-attachments/assets/c873a980-508a-4f0e-bc32-18577f442b16)
+
 
 ## Technologies Used
 
