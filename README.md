@@ -1,5 +1,6 @@
-#CardFolio
-![image](https://github.com/user-attachments/assets/f48b6744-7b18-4233-a61a-5c921b2099a4)
+# CardFolio
+
+![image](https://github.com/user-attachments/assets/2048df46-80bc-4cd1-9f7b-ab720527f321)
 
 
 CardFolio is a platform offering smart NFC business cards. Upon scanning the card, it redirects to a personalized landing page containing extensive personal and professional information, including a profile picture, cover photo, name, heading, bio, contact details, social media links, blog articles, project lists, and a personalized chatbot. Customers can order custom-designed NFC business cards through the website, choose a card design, select a biolinks page template, and fill in their personal data.
